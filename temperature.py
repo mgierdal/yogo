@@ -117,21 +117,21 @@ try:
     #keep_in_range(THRESH_HI, THRESH_LO, INTERVAL, 17, c)
     GPIO.output(GPIO_PIN, 1)
     ts = datetime.datetime.now()
-    while (ts - start_time) < heat_period:
-        if GPIO.input(GPIO_PIN) == 0:
-            GPIO.output(GPIO_PIN, 1)
-            #print 'f',
-        t_c, t_f = read_temp()
-        ts = datetime.datetime.now()
-        power_status = GPIO.input(GPIO_PIN)
-        c.execute("INSERT INTO trace VALUES (?,?,?)",(ts, t_c, power_status))
-        conn.commit()
-        #print '.',
-        time.sleep(INTERVAL)    # wait 
-        keep_in_range(80, 80, INTERVAL, datetime.timedelta(0, 2 *60*60), 17, c)
-        keep_in_range(80, 76, INTERVAL, datetime.timedelta(0, 2 *60*60), 17, c)
-        keep_in_range(76, 60, INTERVAL, datetime.timedelta(0, 2 *60*60), 17, c)
-except KeyboardInterrupt:          # trap a CTRL+C keyboard interrupt
+##    while (ts - start_time) < heat_period:
+##        if GPIO.input(GPIO_PIN) == 0:
+##            GPIO.output(GPIO_PIN, 1)
+##            #print 'f',
+##        t_c, t_f = read_temp()
+##        ts = datetime.datetime.now()
+##        power_status = GPIO.input(GPIO_PIN)
+##        c.execute("INSERT INTO trace VALUES (?,?,?)",(ts, t_c, power_status))
+##        conn.commit()
+##        #print '.',
+##        time.sleep(INTERVAL) # wait 
+    keep_in_range(80, 80, INTERVAL, datetime.timedelta(0, 4 *60*60), 17, c)
+    keep_in_range(80, 76, INTERVAL, datetime.timedelta(0, 2 *60*60), 17, c)
+    keep_in_range(76, 60, INTERVAL, datetime.timedelta(0, 2 *60*60), 17, c)
+except KeyboardInterrupt:      # trap a CTRL+C keyboard interrupt
     pass
 finally:
     GPIO.cleanup()
