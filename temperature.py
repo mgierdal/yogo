@@ -1,5 +1,6 @@
 __version__ = 0.9 # test version
 __version__ = 1.0 # heat and cool study
+__version__ = 1.1 # thermostate study
 
 # Import Libraries
 
@@ -62,7 +63,7 @@ def keep_in_range(hi, lo, interval, period, gpio, cursor):
     while (ts - start_time) > period:
         t_c, t_f = read_temp()
         ts = datetime.datetime.now()
-        power_status = GPIO.input(GPIO_PIN)
+        power_status = GPIO.input(gpio)
         if (t_c < lo):
             if power_status == 0:
                 #print t_c, "LED switched on", ts
